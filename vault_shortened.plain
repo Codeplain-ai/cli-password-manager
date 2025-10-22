@@ -1,0 +1,261 @@
+# Command-Line Password Manager
+
+***Definitions:***
+
+- The Vault is a secure, encrypted data store that holds credential information.
+  - The Vault is represented as a single encrypted file on disk (`vault.dat`).
+  - The Vault includes a header containing metadata (version, salt, KDF parameters, nonce) and an encrypted payload containing The Entries.
+  - The Vault must be readable and writable only by the owner of the file.
+
+- The Entry represents one stored credential inside The Vault.
+  - The Entry has the following attributes:
+    - ID – a unique identifier (string or UUID).
+    - Name – a short description of the service or account.
+    - Username – the username or login identifier for the service.
+    - Password – the secret associated with The Entry.
+    - URL – an optional link or reference to the related service.
+    - Notes – optional free-form text.
+    - Created At – timestamp of creation.
+    - Updated At – timestamp of last modification.
+
+- The User - is a human person who uses The Password Manager to store and manage credentials securely.
+  - The User authenticates using The Master Password.
+  - The Master Password is never stored in plaintext.
+  - The Master Password is used to derive an encryption key for The Vault.
+
+- The Encryption Key is derived from The Master Password using a Key Derivation Function (KDF).
+  - The KDF used is Argon2id.
+  - The KDF parameters (salt, memory cost, time cost, parallelism) are stored in The Vault header.
+
+- The CLI (Command-Line Interface) is the interface through which The User interacts with The Password Manager.
+
+- The Clipboard is the system clipboard, used to temporarily hold copied passwords.
+  - The Clipboard contents must automatically clear after a configurable timeout.
+
+- The Password Generator is a feature that creates secure random passwords according to configurable criteria (length, symbols, digits, etc.).
+
+***Non-Functional Requirements:***
+
+- The Implementation must be written in Python 3.11+.
+
+- Python functions description strings should be composed of single line comments starting with '#'
+
+- The following external libraries must be used:
+  - `cryptography` for AES-256-GCM encryption and decryption.
+  - `argon2-cffi` for Argon2id key derivation.
+  - `pyperclip` for clipboard operations.
+  - `pytest` for automated testing.
+
+- The Implementation must run entirely offline and store data locally on the user’s machine.
+
+- The default Vault file path must be `~/.local/share/pwmgr/vault.dat` (configurable via CLI).
+
+- All file operations must be performed atomically. Temporary files must not contain plaintext data after completion.
+
+- The Vault file and its directory must have restricted permissions (`0600` for files, `0700` for directories).
+
+- The Vault must be encrypted using AES-256-GCM with a unique 12-byte nonce per encryption.
+
+- The Master Password must be converted into The Encryption Key using Argon2id with random 16-byte salt and stored KDF parameters.
+
+- Nonce reuse must never occur.
+
+- Sensitive memory (plaintexts, keys, passwords) must be cleared after use when possible.
+
+- Clipboard contents must auto-expire after timeout.
+
+- No plaintext secrets may be written to disk at any time, including temporary files or logs.
+
+- The Implementation must handle authentication failure gracefully and securely.
+
+- The imports should be done at the top of the file and not in individual functions as this is bad practice.
+
+- The Unit Tests must be written in Python using the `pytest` framework.
+
+- The Unit Tests should only test the vital components without being redundant.
+
+
+***Test Requirements:***
+
+- The conformance tests will be run with `python -m unittest discover`
+
+## Argon2id Key Management
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the key_management folder.
+
+- The implemented code should be a module that can be used by other modules of The Vault system.
+
+***Functional Requirements:***
+
+- Implement a function to generate a cryptographically secure random salt for Argon2id KDF using appropriate randomness sources and salt length according to security best practices.
+
+- Implement a get_default_params function to define default Argon2id parameters (memory cost, time cost, and parallelism)
+  - The function should return the set of default Argon2id parameters.
+
+- Implement the core Argon2id key derivation function
+  - The function should take the Master Password and KDF parameters as input and return the derived key
+  
+- Implement the get_key function that take the Master Password as input, obtains the default KDF parameters or KDF parameters from input and returns the derived key and KDF parameters.
+
+## Encryption
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the encryption folder.
+
+- The implemented code should be a module that can be used by other modules of The Vault system.
+
+- The functions of the key_management module should be used to derive the key and obtain cryptographic parameters.
+
+***Functional Requirements:***
+
+- Implement an Encrypt function that encrypts the input string with a given key
+  - The function should take the input key and input string and return an encrypted input string
+
+- Implement a Decrypt function that enables the decryption of an encrypted string with a given key
+  - The function should take the input key and input encrypted string and return an decrypted input string
+
+## Password Entries:
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the password_entries folder.
+
+- The implemented code should be a module that can be used by other modules of The Vault system.
+
+***Functional Requirements:***
+- Create an Entry class with an __init__ method that stores all Entry attributes
+  - The Entry attributes should include auto-generated ID and timestamp generated in the __init__ function.
+
+## Vault Functions
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the vault_structure folder.
+
+- The implemented code should be a module that can be used by other modules of The Vault system.
+
+- Use functions from the key_management module for obtaining the keys.
+
+***Functional Requirements:***
+
+- Create the Vault class that initializes the encrypted payload as empty if they are not provided.
+  - Takes the encryption key and cryptographic parameters as input
+
+- Implement the create_vault function
+  - Get the default cryptographic parameters from the key_management module
+  - create The Vault structure with header containing cryptographic parameters (version, salt, KDF parameters, nonce) and empty encrypted payload for The Entries.
+
+- Implement functionality to encrypt and decrypt the payload.
+  - Take a Payload and encryption key as input and returns the encrypted or decrypted payload
+  - Use functions from the encryption module
+
+- Implement the save_vault function that saves the Vault to a file
+  - Write The Vault to disk as 'vault.dat'.
+
+- Implement the load_vault function that loads the vault from a file.
+  - Loads the vault file
+  - Decrypts the vault Payload.
+  - Returns the decrypted Payload and the Vault header.
+  - Takes an encryption key and vault file path as input
+
+- Implement an add_entry function that handles the entry of a new entry to the vault by the user
+  - Loads the vault from a file using the load_vault function
+  - Takes an Entry object, file path and encryption key as input.
+  - Add the new Entry to The Vault payload.
+  - Re-encrypt The Vault after modification
+  - Save the vault to the same file path
+
+- Implement the delete_entry function that deletes the entry from the Vault
+  - Takes an Entry ID, file path and encryption key as input.
+  - Loads the vault from a file
+  - Removes The Entry with Entry ID from the Payload
+  - Re-encrypt The Vault after modification
+  - Save the vault to the same file path
+
+- Implement a get_entry function that gets the entry from the Vault.
+  - Takes an Entry ID, file path and encryption key as input.
+  - Loads the vault from a file using the load_vault function
+  - Retrieves the entry from the payload using the get_entry_from_payload function.
+  - The Password must only be displayed if the show argument is set to True
+  - The Password must only be copied to clipboard if the clip argument is set to True.
+  - The clip argument should be set to True by default.
+
+- Implement the list_entries function that lists all the entries in the Vault
+  - Takes the file path and encryption key as input.
+  - Loads the vault from a file using the load_vault function
+  - Displays the usernames and metadata for all entries in the Vault.
+
+- Implement the change_encryption_key function that changes the encryption key for the vault.
+  - Takes the file path, the current encryption key and the new encryption key as input.
+  - Loads the vault from a file using the load_vault function
+  - Encrypt The Vault with the new encryption key
+  - Save the vault to file
+
+## Password Functionality
+
+***Test Requirements:***
+
+- Some functionalities require user input to work. The conformance tests should simulate or mock the input functions to test these functionalities.
+
+- The mocking of the input functions should be done in the conformance tests so the testing environment should not affect the implementation code. Should use unittest.mock to mock the getpass or getpass.getpass function. Make sure to correctly path the mock function. For example @patch(modulename.filename.getpass)
+
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the password_functionality folder.
+
+- The implemented code should be a module that can be used by other modules of The Vault system.
+
+- User inputs that can raise exceptions such as KeyboardInterrupt should be gracefully handled.
+
+***Functional Requirements:***
+
+- Implement a secure password_input function that handles the password input of the User.
+  - it should prompt The User for The Master Password with hidden input (no characters displayed on screen)
+  - should use getpass.getpass as the user input function
+  - it should return the The Users input.
+
+- Implement a password_validation function that checks The Master Password against minimum security requirements
+  - The password should be at least 8 characters long and have at least one upper case letter, one lower case letter and a special character
+  - The function should return True if the Master Password is valid and False if it is not.
+
+- Implement the setup_password function to setup a Master Password
+  - user should input the new Master Password with the password_input function
+  - user should then enter the Master Password again with the password_input function
+  - if the passwords do not match, throw an error.
+
+
+## Vault commands
+
+***Non-Functional Requirements:***
+
+- The commands should be implemented in Vault CLI.
+
+- The Vault CLI is defined in the vault.py
+
+- The functions from the password_functionality module should be used for password inputs
+
+***Functional Requirements:***
+
+- Implement the Help function which prints out the usage for The Vault app
+  - This Help function should be called if vault.py is run without input arguments.
+
+- Implement an Initialization Command (`init`)
+  - Ask the user for the password
+  - Get the encryption key and KDF parameters using the get_key function in the key_management module.
+  - The function should initialize the Vault using the key and KDF parameters.
+
+- Implement an Add Command (`add`) that adds an additional password to the vault
+  - The function should call the add_entry function of the vault_structure module.
+
+- Implement the Get Command (`get`) which retrieves the password
+  - The function should call the get_entry function of the vault_structure module.
+
+- Implement the Delete Command (`delete`)
+  - The function should call the delete_entry function of the vault_structure module.
+
+- Implement the List Command (`list`)
+  - The function should call the list_entries function of the vault_structure module.

@@ -17,6 +17,10 @@ if [ -z "$2" ]; then
 fi
 
 current_dir=$(pwd)
+echo "Current directory: $current_dir"
+echo "Build folder name: $1"
+echo "Conformance tests folder name: $2"
+echo "--------------------------------"
 
 PYTHON_BUILD_SUBFOLDER=python_$1
 
