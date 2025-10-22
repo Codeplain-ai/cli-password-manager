@@ -54,24 +54,19 @@ printf "Creating and activating virtual environment...\n"
 
 # Time the virtual environment creation and activation
 start_time=$(date +%s.%N)
-python3.12 -m venv .venv
-source .venv/bin/activate
 
 # Install requirements if requirements.txt exists
 if [ -f "requirements.txt" ]; then
     pip install -r requirements.txt
 else
-    echo "Error: requirements.txt not found. Cannot proceed with setup."
-    deactivate
-    rm -rf .venv
-    exit 4
+    echo "Error: requirements.txt not found. Cannot proceed with setting up requirements."
 fi
 
 end_time=$(date +%s.%N)
 
 # Calculate and display the time taken
 duration=$(echo "$end_time - $start_time" | bc)
-printf "Virtual environment created and activated in %.2f seconds\n\n" "$duration"
+printf "Requirements setup completed in %.2f seconds\n\n" "$duration"
 
 # Execute all Python conformance tests in the build folder
 printf "Running Python conformance tests...\n\n"
