@@ -63,7 +63,7 @@ start_time=$(date +%s.%N)
 if [ -f "requirements.txt" ]; then
     pip install -r requirements.txt
 else
-    echo "Error: requirements.txt not found. Cannot proceed with setting up requirements."
+    echo "Warning: requirements.txt not found. Cannot proceed with setting up requirements. The requirements may also already be installed"
 fi
 
 end_time=$(date +%s.%N)
@@ -73,7 +73,7 @@ duration=$(echo "$end_time - $start_time" | bc)
 printf "Requirements setup completed in %.2f seconds\n\n" "$duration"
 
 # Execute all Python conformance tests in the build folder
-printf "Running Python conformance tests...\n\n"
+printf "Running Python conformance tests in the conformance tests folder...\n\n"
 
 output=$(python -m unittest discover -b -s "$current_dir/$2" 2>&1)
 exit_code=$?

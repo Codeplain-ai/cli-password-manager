@@ -24,10 +24,12 @@
 - :VaultHeader: is the metadata stored in the :Vault: storage file.
   - :VaultHeader: includes the version, salt, KDF parameters and nonce.
 
-- :User: is a human person who uses the :Vault: to store and manage credentials securely.
-  - :User: authenticates using the :MasterPassword:.
+- :MasterPassword: is the password used to access the :Vault:.
   - :MasterPassword: is never stored in plaintext.
   - :MasterPassword: is used to derive an encryption key for the :Vault:.
+
+- :User: is a human person who uses the :Vault: to store and manage credentials securely.
+  - :User: authenticates using the :MasterPassword:.
 
 - :EncryptionKey: is derived from the :MasterPassword: using a Key Derivation Function (KDF).
   - The KDF used is Argon2id.
@@ -37,8 +39,6 @@
 
 - :Clipboard: is the system clipboard, used to temporarily hold copied passwords.
   - The Clipboard contents must automatically clear after a configurable timeout.
-
-- :Implementation: is the code that implements the :Vault: system.
 
 ***Non-Functional Requirements:***
 
@@ -70,7 +70,7 @@
 
 - No plaintext secrets may be written to disk at any time, including temporary files or logs.
 
-- The :Implementation: must handle authentication failure gracefully and securely.
+- :Implementation: must handle authentication failure gracefully and securely.
 
 - The imports should be done at the top of the file and not in individual functions as this is bad practice.
 
@@ -260,7 +260,7 @@
 - Implement an Add Command (`add`) that adds an additional password to the :Vault:
   - The function should call the add_entry function of the vault_structure module.
 
-- Implement the Get Command (`get`) which retrieves the :Password:
+- Implement the Get Command (`get`) which retrieves the :Entry: password
   - Takes an :Entry: ID and the :Vault: storage file path as input.
   - The function should call the get_entry function of the vault_structure module.
 
