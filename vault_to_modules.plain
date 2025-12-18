@@ -1,0 +1,29 @@
+# Command-Line Password Manager
+
+{vault_nfrs}
+
+{entry_nfrs}
+
+## Argon2id Key Management
+
+{key_management}
+
+## Encryption
+
+{encryption}
+
+## Password Entries:
+
+{vault_functions}
+
+## Vault Functions
+
+{vault_functions}
+
+## Password Functionality
+
+{password_manager}
+
+## Vault commands
+
+{vault-cli}
