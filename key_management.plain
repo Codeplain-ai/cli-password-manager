@@ -1,0 +1,22 @@
+---
+import:
+  - vault_nfrs
+---
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the key_management folder.
+
+- The implemented code should be a module (:KeyManagementModule:) that can be used by other modules of :Vault: system.
+
+***Functional Requirements:***
+
+- Implement a function to generate a cryptographically secure random salt for Argon2id KDF using appropriate randomness sources and salt length according to security best practices.
+
+- Implement a get_default_params function to define default Argon2id parameters (memory cost, time cost, and parallelism)
+  - The function should return the set of default Argon2id parameters.
+
+- Implement the core Argon2id key derivation function
+  - The function should take :MasterPassword: and KDF parameters as input and return the derived key
+  
+- Implement the get_key function that take :MasterPassword: as input, obtains the default KDF parameters or KDF parameters from input and returns the derived key and KDF parameters.

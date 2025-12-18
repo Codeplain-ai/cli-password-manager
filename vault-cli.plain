@@ -1,0 +1,44 @@
+---
+import:
+  - vault_nfrs
+  - entry_nfrs
+requires:
+  - password_manager
+---
+
+***Non-Functional Requirements:***
+
+- The commands should be implemented in the :CLI:.
+
+- :CLI: is defined in the vault.py
+
+- The functions from :PasswordManagerModule: should be used for password inputs.
+
+***Test Requirements:***
+
+- Some functionalities require user input to work. The conformance tests should simulate or mock the input functions to test these functionalities.
+
+***Functional Requirements:***
+
+- Implement the Help function which prints out the usage for the :Vault: app
+  - This Help function should be called if vault.py is run without input arguments.
+
+- Implement an Initialization Command (`init`)
+  - Ask the user for the password
+  - Get the :EncryptionKey: and KDF parameters using the get_key function in the key_management module.
+  - The function should initialize the :Vault: using the :EncryptionKey: and KDF parameters.
+
+- Implement an Add Command (`add`) that adds an additional password to the :Vault:
+  - The function should call the add_entry function of the vault_structure module.
+
+- Implement the Get Command (`get`) which retrieves the :Entry: password
+  - Takes an :Entry: ID and the :Vault: storage file path as input.
+  - The function should call the get_entry function of the vault_structure module.
+
+- Implement the Delete Command (`delete`)
+  - Takes an :Entry: ID and the :Vault: storage file path as input.
+  - The function should call the delete_entry function of the vault_structure module.
+
+- Implement the List Command (`list`)
+  - Takes the :Vault: storage file path as input.
+  - The function should call the list_entries function of the vault_structure module.

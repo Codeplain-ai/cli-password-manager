@@ -1,0 +1,65 @@
+***Definitions:***
+
+- :Vault: is a secure, encrypted data store that holds credential information.
+  - :Vault: is represented as a single encrypted file on disk (`vault.dat`).
+  - :Vault: includes a header containing metadata (version, salt, KDF parameters, nonce) and an encrypted payload containing the stored entries.
+  - :Vault: must be readable and writable only by the owner of the file.
+
+- :MasterPassword: is the password used to access the :Vault:.
+  - :MasterPassword: is never stored in plaintext.
+  - :MasterPassword: is used to derive an encryption key for the :Vault:.
+
+- :User: is a human person who uses the :Vault: to store and manage credentials securely.
+  - :User: authenticates using the :MasterPassword:.
+
+- :EncryptionKey: is derived from the :MasterPassword: using a Key Derivation Function (KDF).
+  - The KDF used is Argon2id.
+  - The KDF parameters (salt, memory cost, time cost, parallelism) are stored in the :Vault: header.
+
+- :KeyManagementModule: is module for managing :EncryptionKey: derivation and KDF parameters.
+
+- :EncryptionModule: is module for encrypting and decrypting data within the :Vault:
+
+- :VaultFunctionsModule: is a module that handles the core functionality of the :Vault:
+
+- :PasswordManagerModule: is a module that manages password inputs and validations for the :Vault:.
+
+***Non-Functional Requirements:***
+
+- :Implementation: must be written in Python 3.11+.
+
+- The following external libraries must be used in the :Implementation:
+  - `cryptography` for AES-256-GCM encryption and decryption.
+  - `argon2-cffi` for Argon2id key derivation.
+  - `pyperclip` for clipboard operations.
+  - `pytest` for automated testing.
+
+- :Implementation: must run entirely offline and store data locally on the :User:'s machine.
+
+- :Implementation: must handle authentication failure gracefully and securely.
+
+- The imports should be done at the top of the file and not in individual functions as this is bad practice.
+
+- :UnitTests: must be written in Python using the `pytest` framework.
+
+- :UnitTests: will be run using 'python -m unittest discover -b -v' in the top-level folder.
+
+- :UnitTests: should only test the vital components without being redundant.
+
+- All file operations must be performed atomically. Temporary files must not contain plaintext data after completion.
+
+- :Vault: storage file and its directory must have restricted permissions (`0600` for files, `0700` for directories).
+
+- :Vault: must be encrypted using AES-256-GCM with a unique 12-byte nonce per encryption.
+
+- :MasterPassword: must be converted into the :EncryptionKey: using Argon2id with random 16-byte salt and stored KDF parameters.
+
+- Nonce reuse must never occur.
+
+- Sensitive memory (plaintexts, keys, passwords) must be cleared after use when possible.
+
+- No plaintext secrets may be written to disk at any time, including temporary files or logs.
+
+***Test Requirements:***
+
+- :ConformanceTests: will be run with `python -m unittest discover`

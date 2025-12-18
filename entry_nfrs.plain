@@ -1,0 +1,33 @@
+---
+import:
+  - vault_nfrs
+---
+
+***Definitions:***
+
+- :Entry: represents one stored credential inside the :Vault:.
+  - :Entry: has the following attributes:
+    - ID – a unique identifier (string or UUID).
+    - Name – a short description of the service or account.
+    - Username – the username or login identifier for the service or account.
+    - Password – the secret associated with the service or account.
+    - URL – an optional link or reference to the related service.
+    - Notes – optional free-form text.
+    - Created At – timestamp of creation.
+    - Updated At – timestamp of last modification.
+
+- :Payload: is the encrypted data stored in the :Vault: storage file.
+  - :Payload: includes the encrypted entries.
+
+- :VaultHeader: is the metadata stored in the :Vault: storage file.
+  - :VaultHeader: includes the version, salt, KDF parameters and nonce.
+
+- :CLI: (Command-Line Interface) is the interface through which :User: interacts with the :Vault:.
+
+- :Clipboard: is the system clipboard, used to temporarily hold copied passwords.
+
+***Non-Functional Requirements:***
+
+- The default :Vault: storage file path must be `~/.local/share/pwmgr/vault.dat` (configurable via the :CLI:).
+
+- The contents of :Clipboard: must automatically clear after a configurable timeout.

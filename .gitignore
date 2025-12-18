@@ -1,0 +1,7 @@
+.DS_Store
+
+# Ignore all files in the build directory
+plain_modules/
+conformance_tests/
+python_plain_modules/
+python_conformance_tests/
