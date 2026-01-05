@@ -50,9 +50,9 @@
   - `pyperclip` for clipboard operations.
   - `pytest` for automated testing.
 
-- :Implementation: must run entirely offline and store data locally on the :User:'s machine.
+- :Implementation: must run entirely offline and store data locally on :User:'s machine.
 
-- The default :Vault: storage file path must be `~/.local/share/pwmgr/vault.dat` (configurable via the :CLI:).
+- The default :Vault: storage file path must be `~/.local/share/pwmgr/vault.dat` (configurable via :CLI:).
 
 - All file operations must be performed atomically. Temporary files must not contain plaintext data after completion.
 
@@ -60,7 +60,7 @@
 
 - The :Vault: must be encrypted using AES-256-GCM with a unique 12-byte nonce per encryption.
 
-- The :MasterPassword: must be converted into the :EncryptionKey: using Argon2id with random 16-byte salt and stored KDF parameters.
+- The :MasterPassword: must be converted into :EncryptionKey: using Argon2id with random 16-byte salt and stored KDF parameters.
 
 - Nonce reuse must never occur.
 
@@ -72,12 +72,11 @@
 
 - :Implementation: must handle authentication failure gracefully and securely.
 
-- The imports should be done at the top of the file and not in individual functions as this is bad practice.
-
 - The :UnitTests: must be written in Python using the `pytest` framework.
 
 - The :UnitTests: should only test the vital components without being redundant.
 
+- The imports should be done at the top of the file and not in individual functions as this is bad practice.
 
 ***Test Requirements:***
 
@@ -243,14 +242,14 @@
 
 - The commands should be implemented in the :CLI:.
 
-- The :CLI: is defined in the vault.py
+- :CLI: is defined in the vault.py
 
 - The functions from the password_functionality module should be used for password inputs
 
 ***Functional Requirements:***
 
 - Implement the Help function which prints out the usage for the :Vault: app
-  - This Help function should be called if vault.py is run without input arguments.
+  - This Help function should be called if the :CLI: entry point is run without input arguments.
 
 - Implement an Initialization Command (`init`)
   - Ask the user for the password
