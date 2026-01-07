@@ -16,14 +16,6 @@
   - The KDF used is Argon2id.
   - The KDF parameters (salt, memory cost, time cost, parallelism) are stored in the :Vault: header.
 
-- :KeyManagementModule: is module for managing :EncryptionKey: derivation and KDF parameters.
-
-- :EncryptionModule: is module for encrypting and decrypting data within the :Vault:
-
-- :VaultFunctionsModule: is a module that handles the core functionality of the :Vault:
-
-- :PasswordManagerModule: is a module that manages password inputs and validations for the :Vault:.
-
 ***Non-Functional Requirements:***
 
 - :Implementation: must be written in Python 3.11+.

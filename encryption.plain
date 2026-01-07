@@ -3,7 +3,13 @@ import:
   - vault_nfrs
 requires:
   - key_management
+exported_concepts:
+  - :EncryptionModule:
 ---
+
+***Definitions:***
+
+- :EncryptionModule: is module for encrypting and decrypting data within the :Vault:
 
 ***Non-Functional Requirements:***
 

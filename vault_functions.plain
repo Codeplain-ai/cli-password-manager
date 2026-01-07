@@ -3,8 +3,13 @@ import:
   - vault_nfrs
   - entry_nfrs
 requires:
+  - key_management
   - encryption
 ---
+
+***Definitions:***
+
+- :VaultFunctionsModule: is a module that handles the core functionality of the :Vault:
 
 ***Non-Functional Requirements:***
 
