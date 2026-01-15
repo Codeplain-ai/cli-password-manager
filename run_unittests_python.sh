@@ -9,6 +9,11 @@ if [ -z "$1" ]; then
   exit $UNRECOVERABLE_ERROR_EXIT_CODE
 fi
 
+current_dir=$(pwd)
+echo "Current directory: $current_dir"
+echo "Build folder name: $1"
+echo "--------------------------------"
+
 PYTHON_BUILD_SUBFOLDER=python_$1
 
 if [ "${VERBOSE:-}" -eq 1 ] 2>/dev/null; then
