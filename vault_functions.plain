@@ -31,8 +31,8 @@ requires:
   - Get the default cryptographic parameters from the key_management module
   - create The Vault structure with :VaultHeader: containing cryptographic parameters (version, salt, KDF parameters, nonce) and empty :Payload: for the stored entries.
 
-- Implement functionality to encrypt the payload.
-  - Take a :Payload: and :EncryptionKey: as input and returns the encrypted :Payload:
+- Implement functionality to encrypt the entries.
+  - Take the entries and :EncryptionKey: as input and returns the encrypted :Payload:
   - Use functions from the encryption module
 
 - Implement functionality to decrypt the payload.
