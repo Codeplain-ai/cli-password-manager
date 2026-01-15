@@ -1,0 +1,28 @@
+---
+import:
+  - vault_nfrs
+requires:
+  - key_management
+exported_concepts:
+  - :EncryptionModule:
+---
+
+***Definitions:***
+
+- :EncryptionModule: is module for encrypting and decrypting data within the :Vault:
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the encryption folder.
+
+- The implemented code should be a module (:EncryptionModule:) that can be used by other modules of the :Vault: system.
+
+- The functions of :KeyManagementModule: should be used to derive the key and obtain cryptographic parameters.
+
+***Functional Requirements:***
+
+- Implement an Encrypt function that encrypts the input string with a given key
+  - The function should take the input key and input string and return an encrypted input string
+
+- Implement a Decrypt function that enables the decryption of an encrypted string with a given key
+  - The function should take the input key and input encrypted string and return an decrypted input string

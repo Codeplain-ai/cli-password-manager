@@ -1,0 +1,83 @@
+---
+import:
+  - vault_nfrs
+  - entry_nfrs
+requires:
+  - key_management
+  - encryption
+---
+
+***Definitions:***
+
+- :VaultFunctionsModule: is a module that handles the core functionality of the :Vault:
+
+***Non-Functional Requirements:***
+
+- The code should be implemented in the vault_structure folder.
+
+- The implemented code should be a module (:VaultFunctionsModule:) that can be used by other modules of The Vault system.
+
+- Use functions from :KeyManagementModule: for obtaining the keys.
+
+***Functional Requirements:***
+
+- Create an :Entry: class with an __init__ method that stores all :Entry: attributes
+  - The :Entry: attributes should include auto-generated ID and timestamp generated in the __init__ function.
+
+- Create the Vault class that initializes the encrypted payload as empty if they are not provided.
+  - Takes the encryption key and cryptographic parameters as input
+
+- Implement the create_vault function
+  - Get the default cryptographic parameters from the key_management module
+  - create The Vault structure with :VaultHeader: containing cryptographic parameters (version, salt, KDF parameters, nonce) and empty :Payload: for the stored entries.
+
+- Implement functionality to encrypt the entries.
+  - Take the entries and :EncryptionKey: as input and returns the encrypted :Payload:
+  - Use functions from the encryption module
+
+- Implement functionality to decrypt the payload.
+  - Take an encrypted :Payload: and :EncryptionKey: as the input and returns the decrypted :Payload:
+  - Use functions from the encryption module
+
+- Implement the save_vault function that saves the :Vault: to a storage file
+  - Write the :Vault: to disk as 'vault.dat'.
+  - The :Payload: should be encrypted and the :VaultHeader: should be in plaintext
+
+- Implement the load_vault function that loads the vault from a file.
+  - Loads the :Vault: storage file
+  - Decrypts the :Payload: of the :Vault:.
+  - Returns the decrypted :Payload: and the :VaultHeader:.
+  - Takes an :EncryptionKey: and :Vault: storage file path as input
+
+- Implement an add_entry function that handles the entry of a new entry to the vault by the user
+  - Loads the :Vault: from a storage file using the load_vault function
+  - Takes an :Entry: object, :Vault: storage file path and :EncryptionKey: as input.
+  - Add the new :Entry: to the :Payload: of the :Vault:.
+  - Re-encrypt the :Vault: after modification
+  - Save the :Vault: to the same storage file path
+
+- Implement the delete_entry function that deletes the :Entry: from the :Vault:
+  - Takes an :Entry: ID, storage file path and :EncryptionKey: as input.
+  - Loads the :Vault: from a storage file
+  - Removes the :Entry: with :Entry: ID from the :Payload: of the :Vault:
+  - Re-encrypt the :Vault: after modification
+  - Save the :Vault: to the same storage file path
+
+- Implement a get_entry function that gets the :Entry: from the :Vault:.
+  - Takes an Entry ID, file path and encryption key as input.
+  - Loads the :Vault: from a storage file using the load_vault function
+  - Retrieves the :Entry: from the :Payload: of the :Vault: using the get_entry_from_payload function.
+  - The :Entry: associated password must only be displayed if the show argument is set to True
+  - The :Entry: associated password must only be copied to the :Clipboard: if the clip argument is set to True.
+  - The clip argument should be set to True by default.
+
+- Implement the list_entries function that lists all the :Entry: objects in the :Vault:
+  - Takes the storage file path and :EncryptionKey: as input.
+  - Loads the :Vault: from a storage file using the load_vault function
+  - Displays the usernames and metadata for all :Entry: objects in the :Vault:.
+
+- Implement the change_encryption_key function that changes the :EncryptionKey: for the :Vault:.
+  - Takes the storage file path, the current :EncryptionKey: and the new :EncryptionKey: as input.
+  - Loads the :Vault: from a storage file using the load_vault function
+  - Encrypt the :Vault: with the new :EncryptionKey:
+  - Save the :Vault: to the same storage file path
