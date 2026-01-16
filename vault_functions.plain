@@ -7,11 +7,11 @@ requires:
   - encryption
 ---
 
-***Definitions:***
+***definitions***
 
 - :VaultFunctionsModule: is a module that handles the core functionality of the :Vault:
 
-***Non-Functional Requirements:***
+***technical specs***
 
 - The code should be implemented in the vault_structure folder.
 
@@ -19,7 +19,7 @@ requires:
 
 - Use functions from :KeyManagementModule: for obtaining the keys.
 
-***Functional Requirements:***
+***functional specs***
 
 - Create an :Entry: class with an __init__ method that stores all :Entry: attributes
   - The :Entry: attributes should include auto-generated ID and timestamp generated in the __init__ function.

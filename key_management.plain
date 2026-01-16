@@ -5,17 +5,17 @@ exported_concepts:
   - :KeyManagementModule:
 ---
 
-***Definitions:***
+***definitions***
 
 - :KeyManagementModule: is module for managing :EncryptionKey: derivation and KDF parameters.
 
-***Non-Functional Requirements:***
+***technical specs***
 
 - The code should be implemented in the key_management folder.
 
 - The implemented code should be a module (:KeyManagementModule:) that can be used by other modules of :Vault: system.
 
-***Functional Requirements:***
+***functional specs***
 
 - Implement a function to generate a cryptographically secure random salt for Argon2id KDF using appropriate randomness sources and salt length according to security best practices.
 
