@@ -7,11 +7,11 @@ exported_concepts:
   - :EncryptionModule:
 ---
 
-***Definitions:***
+***definitions***
 
 - :EncryptionModule: is module for encrypting and decrypting data within the :Vault:
 
-***Non-Functional Requirements:***
+***technical specs***
 
 - The code should be implemented in the encryption folder.
 
@@ -19,7 +19,7 @@ exported_concepts:
 
 - The functions of :KeyManagementModule: should be used to derive the key and obtain cryptographic parameters.
 
-***Functional Requirements:***
+***functional specs***
 
 - Implement an Encrypt function that encrypts the input string with a given key
   - The function should take the input key and input string and return an encrypted input string

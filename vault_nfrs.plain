@@ -1,4 +1,4 @@
-***Definitions:***
+***definitions***
 
 - :Vault: is a secure, encrypted data store that holds credential information.
   - :Vault: is represented as a single encrypted file on disk (`vault.dat`).
@@ -16,7 +16,7 @@
   - The KDF used is Argon2id.
   - The KDF parameters (salt, memory cost, time cost, parallelism) are stored in the :Vault: header.
 
-***Non-Functional Requirements:***
+***technical specs***
 
 - :Implementation: must be written in Python 3.11+.
 
@@ -52,6 +52,6 @@
 
 - No plaintext secrets may be written to disk at any time, including temporary files or logs.
 
-***Test Requirements:***
+***test specs***
 
 - :ConformanceTests: will be run with `python -m unittest discover`

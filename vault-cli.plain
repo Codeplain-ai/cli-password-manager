@@ -6,7 +6,7 @@ requires:
   - password_manager
 ---
 
-***Non-Functional Requirements:***
+***technical specs***
 
 - The commands should be implemented in the :CLI:.
 
@@ -14,11 +14,11 @@ requires:
 
 - The functions from :PasswordManagerModule: should be used for password inputs.
 
-***Test Requirements:***
+***test specs***
 
 - Some functionalities require user input to work. The conformance tests should simulate or mock the input functions to test these functionalities.
 
-***Functional Requirements:***
+***functional specs***
 
 - Implement the Help function which prints out the usage for the :Vault: app
   - This Help function should be called if vault.py is run without input arguments.

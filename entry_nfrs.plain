@@ -3,7 +3,7 @@ import:
   - vault_nfrs
 ---
 
-***Definitions:***
+***definitions***
 
 - :Entry: represents one stored credential inside the :Vault:.
   - :Entry: has the following attributes:
@@ -26,7 +26,7 @@ import:
 
 - :Clipboard: is the system clipboard, used to temporarily hold copied passwords.
 
-***Non-Functional Requirements:***
+***technical specs***
 
 - The default :Vault: storage file path must be `~/.local/share/pwmgr/vault.dat` (configurable via the :CLI:).
 
