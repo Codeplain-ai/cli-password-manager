@@ -1,12 +1,12 @@
 ---
 import:
-  - vault_nfrs
-  - entry_nfrs
+  - vault_reqs
+  - entry_reqs
 requires:
   - password_manager
 ---
 
-***technical specs***
+***implementation reqs***
 
 - The commands should be implemented in the :CLI:.
 
@@ -14,7 +14,7 @@ requires:
 
 - The functions from :PasswordManagerModule: should be used for password inputs.
 
-***test specs***
+***test reqs***
 
 - Some functionalities require user input to work. The conformance tests should simulate or mock the input functions to test these functionalities.
 

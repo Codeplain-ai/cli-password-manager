@@ -1,6 +1,6 @@
 ---
 import:
-  - vault_nfrs
+  - vault_reqs
 requires:
   - key_management
 exported_concepts:
@@ -11,7 +11,7 @@ exported_concepts:
 
 - :EncryptionModule: is module for encrypting and decrypting data within the :Vault:
 
-***technical specs***
+***implementation reqs***
 
 - The code should be implemented in the encryption folder.
 

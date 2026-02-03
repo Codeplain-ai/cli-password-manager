@@ -1,6 +1,6 @@
 ---
 import:
-  - vault_nfrs
+  - vault_reqs
 exported_concepts:
   - :KeyManagementModule:
 ---
@@ -9,7 +9,7 @@ exported_concepts:
 
 - :KeyManagementModule: is module for managing :EncryptionKey: derivation and KDF parameters.
 
-***technical specs***
+***implementation reqs***
 
 - The code should be implemented in the key_management folder.
 
