@@ -1,6 +1,6 @@
 ---
 import:
-  - vault_nfrs
+  - vault_reqs
 ---
 
 ***definitions***
@@ -26,7 +26,7 @@ import:
 
 - :Clipboard: is the system clipboard, used to temporarily hold copied passwords.
 
-***technical specs***
+***implementation reqs***
 
 - The default :Vault: storage file path must be `~/.local/share/pwmgr/vault.dat` (configurable via the :CLI:).
 
