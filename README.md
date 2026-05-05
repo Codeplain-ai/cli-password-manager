@@ -1,10 +1,10 @@
 # CLI Password Manager — Plain Project
 
-A [Plain](https://codeplain.ai) spec-driven project defining a secure, offline CLI password manager ("The Vault").
+A [***plain](https://codeplain.ai) spec-driven project defining a secure, offline CLI password manager ("The Vault").
 
 ## Overview
 
-The `.plain` files in this repository are specifications that Plain uses to generate the implementation. The Vault stores credentials in an encrypted local file (`vault.dat`) protected by a master password, using AES-256-GCM encryption and Argon2id key derivation.
+The `.plain` files in this repository are specifications that ***plain uses to generate the implementation. The Vault stores credentials in an encrypted local file (`vault.dat`) protected by a master password, using AES-256-GCM encryption and Argon2id key derivation.
 
 ## Features
 
