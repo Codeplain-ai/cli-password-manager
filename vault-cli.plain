@@ -14,14 +14,16 @@ requires:
 
 - The functions from :PasswordManagerModule: should be used for password inputs.
 
+- All :CLI: functions operating on :Vault: should accept optional --path argument that explicitly defines :Vault: storage file path.
+
 ***test reqs***
 
 - Some functionalities require user input to work. The conformance tests should simulate or mock the input functions to test these functionalities.
 
 ***functional specs***
 
-- Implement the Help function which prints out the usage for the :Vault: app
-  - This Help function should be called if vault.py is run without input arguments.
+- Implement the Help command which prints out the usage for the :Vault: app
+  - This Help command should be called if :CLI: is run without input arguments or help command argument.
 
 - Implement an Initialization Command (`init`)
   - Ask the user for the password
@@ -29,16 +31,17 @@ requires:
   - The function should initialize the :Vault: using the :EncryptionKey: and KDF parameters.
 
 - Implement an Add Command (`add`) that adds an additional password to the :Vault:
-  - The function should call the add_entry function of the vault_structure module.
+  - Ask the user for entry details
+  - The function should call the add_entry function of the vault_functions module.
 
 - Implement the Get Command (`get`) which retrieves the :Entry: password
   - Takes an :Entry: ID and the :Vault: storage file path as input.
-  - The function should call the get_entry function of the vault_structure module.
+  - The function should call the get_entry function of the vault_functions module.
 
 - Implement the Delete Command (`delete`)
   - Takes an :Entry: ID and the :Vault: storage file path as input.
-  - The function should call the delete_entry function of the vault_structure module.
+  - The function should call the delete_entry function of the vault_functions module.
 
 - Implement the List Command (`list`)
   - Takes the :Vault: storage file path as input.
-  - The function should call the list_entries function of the vault_structure module.
+  - The function should call the list_entries function of the vault_functions module.
