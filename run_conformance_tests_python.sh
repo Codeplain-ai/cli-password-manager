@@ -22,7 +22,14 @@ echo "Build folder name: $1"
 echo "Conformance tests folder name: $2"
 echo "--------------------------------"
 
-PYTHON_BUILD_SUBFOLDER=python_$1
+PYTHON_BUILD_SUBFOLDER="/tmp/python_$(basename "$1")"
+CONFORMANCE_TESTS_FOLDER="/tmp/conformance_tests_$(basename "$2")"
+
+echo "Creating execution folder for conformance tests: $CONFORMANCE_TESTS_FOLDER"
+mkdir -p "$CONFORMANCE_TESTS_FOLDER"
+
+echo "Copying conformance tests to execution folder: $CONFORMANCE_TESTS_FOLDER"
+cp -R "$2"/* "$CONFORMANCE_TESTS_FOLDER"
 
 if [ "${VERBOSE:-}" -eq 1 ] 2>/dev/null; then
   printf "Preparing Python build subfolder: $PYTHON_BUILD_SUBFOLDER\n"
@@ -73,9 +80,9 @@ duration=$(echo "$end_time - $start_time" | bc)
 printf "Requirements setup completed in %.2f seconds\n\n" "$duration"
 
 # Execute all Python conformance tests in the build folder
-printf "Running Python conformance tests in the conformance tests folder...\n\n"
+printf "Running Python conformance tests in the conformance tests folder $CONFORMANCE_TESTS_FOLDER...\n\n"
 
-output=$(python -m unittest discover -b -s "$2" 2>&1)
+output=$(python -m unittest discover -b -s "$CONFORMANCE_TESTS_FOLDER" 2>&1)
 exit_code=$?
 
 # Echo the original output
