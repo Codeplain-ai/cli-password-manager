@@ -75,7 +75,7 @@ printf "Requirements setup completed in %.2f seconds\n\n" "$duration"
 # Execute all Python conformance tests in the build folder
 printf "Running Python conformance tests in the conformance tests folder...\n\n"
 
-output=$(python -m unittest discover -b -s "$current_dir/$2" 2>&1)
+output=$(python -m unittest discover -b -s "$2" 2>&1)
 exit_code=$?
 
 # Echo the original output
